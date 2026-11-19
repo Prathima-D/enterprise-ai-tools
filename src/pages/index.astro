@@ -1,59 +1,342 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to
-				build a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your{' '}
-				<code>astro.config.mjs</code> file. You can customize your setup with{' '}
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like
-				Tailwind, React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>
-					Edit this page in <code>src/pages/index.astro</code>
-				</li>
-				<li>
-					Edit the site header items in <code>src/components/Header.astro</code>
-				</li>
-				<li>
-					Add your name to the footer in <code>src/components/Footer.astro</code>
-				</li>
-				<li>
-					Check out the included blog posts in <code>src/content/blog/</code>
-				</li>
-				<li>
-					Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code>
-				</li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to{' '}
-				<a href="https://docs.astro.build/">read the docs</a> or{' '}
-				<a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out{' '}
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a> by{' '}
-				<a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <!-- Moving Banner Slider Section -->
+      <section class="banner-slider">
+        <div class="slides-wrapper" id="slidesWrapper">
+          <!-- Slide 1: SAP AI Joule Studio Certification -->
+          <div class="slide slide-1 active">
+            <div class="slide-content">
+              <span class="badge">Limited-Time Certification Window</span>
+              <h1>SAP AI Joule Studio for Developers & Solution Architects</h1>
+              <p>
+                SAP is providing a free certification window for its SAP AI Joule Studio for Developers and Solution Architects. If you are interested, 
+                <a 
+                  href="https://learning.sap.com/joule-studio-certification?userlogin=true" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="inline-highlight-link"
+                >register</a> now.
+              </p>
+              <div class="cta-buttons">
+                <a 
+                  href="https://learning.sap.com/joule-studio-certification?userlogin=true" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="btn-primary"
+                >Register for Free Certification ↗</a>
+                <a href="/courses/sap" class="btn-secondary">Explore SAP AI Courses</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2: Enterprise Autonomous Agents -->
+          <div class="slide slide-2">
+            <div class="slide-content">
+              <span class="badge">Enterprise AI Products</span>
+              <h1>Deploy Production-Ready Autonomous AI Agents</h1>
+              <p>
+                Automate complex workflows across Finance, HR, Supply Chain Management (SCM), and Analytics with domain-trained enterprise agents.
+              </p>
+              <div class="cta-buttons">
+                <a href="/products/finance-agents" class="btn-primary">Explore AI Agents</a>
+                <a href="/contact" class="btn-secondary">Request a Demo</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3: Multi-Cloud & Platform AI Courses -->
+          <div class="slide slide-3">
+            <div class="slide-content">
+              <span class="badge">Hands-On Upskilling</span>
+              <h1>Master Enterprise AI Across Leading Cloud Ecosystems</h1>
+              <p>
+                Practical architecture and engineering tracks covering SAP, Claude, Databricks, GCP, Microsoft Azure, and AWS.
+              </p>
+              <div class="cta-buttons">
+                <a href="/courses/claude" class="btn-primary">Browse All Courses</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 4: Strategic AI Services -->
+          <div class="slide slide-4">
+            <div class="slide-content">
+              <span class="badge">Advisory & Engineering</span>
+              <h1>Enterprise AI Strategy & Custom Agent Implementation</h1>
+              <p>
+                From executive AI roadmaps to building custom autonomous agents and extending your existing enterprise AI deployments.
+              </p>
+              <div class="cta-buttons">
+                <a href="/services/enterprise-ai-strategy" class="btn-primary">Explore Services</a>
+                <a href="/about" class="btn-secondary">About Enterprise AI Tools</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Carousel Navigation Controls -->
+        <button class="slider-control prev" id="prevBtn" aria-label="Previous Slide">❮</button>
+        <button class="slider-control next" id="nextBtn" aria-label="Next Slide">❯</button>
+
+        <!-- Slide Indicators -->
+        <div class="slider-dots" id="dotsContainer">
+          <span class="dot active" data-index="0"></span>
+          <span class="dot" data-index="1"></span>
+          <span class="dot" data-index="2"></span>
+          <span class="dot" data-index="3"></span>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+
+    <!-- Carousel Script -->
+    <script>
+      let currentSlide = 0;
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.dot');
+      const totalSlides = slides.length;
+
+      function showSlide(index: number) {
+        slides.forEach((slide, i) => {
+          slide.classList.remove('active');
+          dots[i]?.classList.remove('active');
+        });
+        currentSlide = (index + totalSlides) % totalSlides;
+        slides[currentSlide]?.classList.add('active');
+        dots[currentSlide]?.classList.add('active');
+      }
+
+      document.getElementById('nextBtn')?.addEventListener('click', () => showSlide(currentSlide + 1));
+      document.getElementById('prevBtn')?.addEventListener('click', () => showSlide(currentSlide - 1));
+
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => showSlide(idx));
+      });
+
+      // Auto-slide every 6 seconds
+      setInterval(() => {
+        showSlide(currentSlide + 1);
+      }, 6000);
+    </script>
+
+    <style>
+      main {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      /* Banner Slider Layout */
+      .banner-slider {
+        position: relative;
+        width: 100%;
+        height: 500px;
+        overflow: hidden;
+        background-color: #0b192c;
+      }
+
+      .slides-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+        display: flex;
+        align-items: center;
+        padding: 0 10%;
+      }
+
+      .slide.active {
+        opacity: 1;
+        visibility: visible;
+        z-index: 1;
+      }
+
+      /* Distinct Slide Backgrounds */
+      .slide-1 {
+        background: linear-gradient(135deg, #0b192c 0%, #1e3e62 55%, #00668c 100%);
+      }
+      .slide-2 {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f766e 100%);
+      }
+      .slide-3 {
+        background: linear-gradient(135deg, #172554 0%, #1d4ed8 60%, #0284c7 100%);
+      }
+      .slide-4 {
+        background: linear-gradient(135deg, #1e1b4b 0%, #312e81 55%, #4338ca 100%);
+      }
+
+      .slide-content {
+        max-width: 720px;
+        color: #ffffff;
+      }
+
+      .badge {
+        display: inline-block;
+        background: #00adb5;
+        color: #0b192c;
+        font-size: 0.8rem;
+        font-weight: 700;
+        padding: 5px 14px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 16px;
+      }
+
+      .slide-content h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin: 0 0 16px 0;
+        color: #ffffff;
+      }
+
+      .slide-content p {
+        font-size: 1.15rem;
+        line-height: 1.65;
+        color: #e2e8f0;
+        margin: 0 0 28px 0;
+      }
+
+      /* Inline Hyperlink Styling inside Slide 1 */
+      .inline-highlight-link {
+        color: #38bdf8;
+        font-weight: 700;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        transition: color 0.2s ease;
+      }
+
+      .inline-highlight-link:hover {
+        color: #ffffff;
+      }
+
+      .cta-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .btn-primary {
+        background-color: #00adb5;
+        color: #0b192c;
+        font-weight: 700;
+        padding: 12px 24px;
+        border-radius: 6px;
+        text-decoration: none;
+        transition: transform 0.2s ease, background-color 0.2s ease;
+      }
+
+      .btn-primary:hover {
+        background-color: #38bdf8;
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary {
+        border: 2px solid #ffffff;
+        color: #ffffff;
+        font-weight: 600;
+        padding: 10px 22px;
+        border-radius: 6px;
+        text-decoration: none;
+        transition: background-color 0.2s ease;
+      }
+
+      .btn-secondary:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+
+      /* Carousel Arrows & Dots */
+      .slider-control {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.35);
+        color: #ffffff;
+        border: none;
+        font-size: 1.4rem;
+        padding: 12px 16px;
+        cursor: pointer;
+        z-index: 10;
+        border-radius: 6px;
+        transition: background-color 0.2s ease;
+      }
+
+      .slider-control:hover {
+        background: rgba(0, 173, 181, 0.85);
+        color: #0b192c;
+      }
+
+      .slider-control.prev {
+        left: 20px;
+      }
+
+      .slider-control.next {
+        right: 20px;
+      }
+
+      .slider-dots {
+        position: absolute;
+        bottom: 22px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        z-index: 10;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .dot.active {
+        background: #00adb5;
+        width: 28px;
+        border-radius: 8px;
+      }
+
+      @media (max-width: 768px) {
+        .banner-slider {
+          height: 540px;
+        }
+        .slide {
+          padding: 0 8%;
+        }
+        .slide-content h1 {
+          font-size: 1.85rem;
+        }
+        .slide-content p {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </body>
 </html>
